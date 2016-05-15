@@ -8,6 +8,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 
+import App from '../javascripts/components/app';
+
 // var App = React.createClass({
   // render: function(){
   //   return (
@@ -16,12 +18,14 @@ import { createStore } from 'redux';
   //     </div>
   //   )
   // }
-const App = () => {
-  return (
-    <div className="myDiv">
-      I am the search bar
-    </div>
-  );
-}
+// const App = () => {
+//   return (
+//     <div className="myDiv">
+//         <App />
+//     </div>
+//   );
+// }
 
-ReactDOM.render(<App />, document.getElementById('content'));
+ReactDOM.render(
+    <App />,
+    document.getElementById('content'));
