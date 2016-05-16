@@ -197,8 +197,8 @@ if (process.platform === 'darwin') {
 }
 
 console.log("appMenu.js - build and set menu");
-const menu = Menu.buildFromTemplate(template)
-Menu.setApplicationMenu(menu)
+// const menu = Menu.buildFromTemplate(template)
+// Menu.setApplicationMenu(menu)
 
 // app.on('ready', function () {
 //     console.log("appMenu.js::ready invoked");
