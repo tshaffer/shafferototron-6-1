@@ -17,19 +17,37 @@ module.exports = {
   },
   devtool: 'source-map',
 
+  target: 'electron',
+  // target: 'electron-renderer',
+  // target: 'atom',
+  // target: 'electron-main',
   module: {
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        query: {
-          presets: ['react', 'es2015']
-        }
-      },
+    // loaders: [
+    //   {
+    //     test: /\.jsx?$/,
+    //     loader: 'babel-loader',
+    //     exclude: /node_modules/,
+    //     query: {
+    //       presets: ['react', 'es2015']
+    //     }
+    //   },
+    //   { test: /\.css$/, loader: 'style-loader!css-loader' },
+    //   { test: /\.less$/, loader: 'style-loader!css-loader!less-loader'}
+    // ]
+    loaders: [{
+      test: /\.jsx?$/,
+      loader: 'babel-loader',
+      exclude: /node_modules/,
+      query: {
+        presets: ['react', 'es2015']
+      }
+    },
       { test: /\.css$/, loader: 'style-loader!css-loader' },
-      { test: /\.less$/, loader: 'style-loader!css-loader!less-loader'}
-    ]
+      { test: /\.less$/, loader: 'style-loader!css-loader!less-loader'},
+      {
+      test: /\.json?$/,
+      loader: 'json'
+    }]
   },
 
   plugins: [
