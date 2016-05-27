@@ -4,14 +4,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { queryPhotos } from '../actions/index';
+import { addFolder } from '../actions/index';
 
 import { bindActionCreators } from 'redux';
 
 import PhotoGrid from '../containers/photo-grid';
 import PhotoDetail from '../containers/photo_detail';
 
+// electron only
 const {remote} = require('electron');
-const {Menu, MenuItem} = remote;
+const {Menu, MenuItem, dialog} = remote;
 
 class Photos extends Component {
 
@@ -42,12 +44,18 @@ class Photos extends Component {
         };
         this.setState({divStyle: divStyle});
 
+        // electron only
+        var self = this;
+
         const menuTemplate = [
             {
                 label: 'File',
                 submenu: [
                     {
-                        label: 'Add Folder'
+                        label: 'Add Folder',
+                        click: function() {
+                            self.addFolderToDB();
+                        }
                     }
                 ]
             }
@@ -113,7 +121,21 @@ class Photos extends Component {
 
         const menu = Menu.buildFromTemplate(menuTemplate);
         Menu.setApplicationMenu(menu);
+    }
 
+    // electron only
+    addFolderToDB() {
+
+        var self = this;
+
+        dialog.showOpenDialog({
+            properties: ['openDirectory']
+        }, function (directory) {
+            if (directory) {
+                console.log("addFolderToDB - selectedDirectory" + directory);
+                self.props.addFolder(directory);
+            }
+        })
     }
 
     queryPhotos (querySpec) {
@@ -162,7 +184,7 @@ class Photos extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ queryPhotos: queryPhotos }, dispatch);
+    return bindActionCreators({ addFolder: addFolder, queryPhotos: queryPhotos }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(Photos);

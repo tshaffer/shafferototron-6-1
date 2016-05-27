@@ -6,6 +6,7 @@ export const FETCH_TAGS = 'FETCH_TAGS';
 export const ADD_PHOTOS_TO_ALBUM = 'ADD_PHOTOS_TO_ALBUM';
 export const ADD_TAG = 'ADD_TAGS';
 export const UPDATE_TAG_IN_PHOTOS = 'UPDATE_TAG_IN_PHOTOS';
+export const ADD_FOLDER = 'ADD_FOLDER';
 
 export function selectPhoto(photo) {
     // console.log("a photo has been selected.", photo.title);
@@ -153,3 +154,19 @@ export function updateTagsInPhotos(photosUpdateSpec) {
     };
 }
 
+export function addFolder(folderName) {
+
+    const url = "http://localhost:3000/";
+    const addFolderUrl = url + "addFolder";
+
+    const request = axios.get(addFolderUrl, {
+        params: { folderName: folderName }
+    });
+
+    // action below is currently unused
+    return {
+        type: ADD_FOLDER,
+        payload: request
+    };
+
+}
