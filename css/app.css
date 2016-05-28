@@ -10,6 +10,10 @@ body {
     display: flex;
 }
 
+.navigatorDiv {
+    flex: 1;
+}
+
 .photosDiv {
     flex: 3;
     overflow-y: scroll;

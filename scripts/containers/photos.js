@@ -8,6 +8,7 @@ import { addFolder } from '../actions/index';
 
 import { bindActionCreators } from 'redux';
 
+import Navigator from '../components/navigator';
 import PhotoGrid from '../containers/photo-grid';
 import PhotoDetail from '../containers/photo_detail';
 
@@ -170,6 +171,9 @@ class Photos extends Component {
 
         return (
             <div className="photoPageContainer" style={this.state.divStyle}>
+                <div className="navigatorDiv">
+                    <Navigator></Navigator>
+                    </div>
                 <div className="photosDiv">
                     <PhotoGrid
                         onToggleOpenCloseSidebar={this.handleToggleOpenCloseSidebar.bind(this)}
