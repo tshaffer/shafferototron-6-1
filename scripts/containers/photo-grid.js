@@ -60,7 +60,8 @@ class PhotoGrid extends Component {
 
         let photosForDayNodes = dayOfPhotos.photos.map(function(photo) {
 
-            self.thumbUrl = "http://localhost:3000/photos/" + photo.thumbUrl.replace(" ", "%20");
+            // self.thumbUrl = "http://localhost:3000/photos/" + photo.thumbUrl.replace(" ", "%20");
+            self.thumbUrl = "http://localhost:3000/" + photo.thumbUrl;
             self.photosById[photo.dbId] = photo;
 
             return (
