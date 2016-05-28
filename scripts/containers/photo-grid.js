@@ -8,6 +8,9 @@ import { updateSelectedPhotos } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import { fetchPhotos } from '../actions/index';
 
+import $ from 'jquery';
+import jstree from 'jstree';
+
 class PhotoGrid extends Component {
 
     constructor(props) {
@@ -20,6 +23,9 @@ class PhotoGrid extends Component {
     }
 
     componentWillMount() {
+
+        $(function () { $('#jstree_demo_div').jstree(); });
+
         console.log("photo-grid: componentWillMount invoked");
         this.props.fetchPhotos();
     }
@@ -248,6 +254,23 @@ class PhotoGrid extends Component {
         if (!this.props.sideBarOpen) {
             openCloseLabel = "<=";
         }
+
+        let photoData = { 'data' : [
+            'Simple pepperoni pizza',
+            {
+                'text' : 'Root node 2',
+                'state' : {
+                    'opened' : true,
+                    'selected' : true
+                },
+                'children' : [
+                    { 'text' : 'Child 1' },
+                    'Child 2'
+                ]
+            }
+        ]}
+
+        $('#jstree_demo_div').jstree({ 'core' : photoData });
 
         return (
 
