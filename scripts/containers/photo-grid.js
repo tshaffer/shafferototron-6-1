@@ -255,20 +255,42 @@ class PhotoGrid extends Component {
             openCloseLabel = "<=";
         }
 
-        let photoData = { 'data' : [
-            'Simple pepperoni pizza',
-            {
-                'text' : 'Root node 2',
-                'state' : {
-                    'opened' : true,
-                    'selected' : true
-                },
-                'children' : [
-                    { 'text' : 'Child 1' },
-                    'Child 2'
-                ]
-            }
-        ]}
+        let treeNodes = [];
+
+        treeNodes.push('2016');
+
+        // let node2 = {};
+        // node2['text'] = 'Root node 2';
+        // node2['state'] = { 'opened': true, 'selected': true };
+        // node2['children'] = [
+        //     { 'text': 'Child 1'},
+        //     'Child 2'
+        // ];
+
+        let node2 = {};
+        node2.text = '2015';
+        node2.state = { 'opened': true, 'selected': true };
+        node2.children = [
+            { 'text': 'Dec'},
+            'Nov'
+        ];
+        treeNodes.push(node2);
+        let photoData = { 'data': treeNodes };
+
+        // let photoData = { 'data' : [
+        //     'Simple pepperoni pizza',
+        //     {
+        //         'text' : 'Root node 2',
+        //         'state' : {
+        //             'opened' : true,
+        //             'selected' : true
+        //         },
+        //         'children' : [
+        //             { 'text' : 'Child 1' },
+        //             'Child 2'
+        //         ]
+        //     }
+        // ]}
 
         $('#jstree_demo_div').jstree({ 'core' : photoData });
 

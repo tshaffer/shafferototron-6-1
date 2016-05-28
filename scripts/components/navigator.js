@@ -55,9 +55,8 @@ class Navigator extends Component {
 
         return (
           <div>
-              herro
+              All Photos
               <div id="jstree_demo_div"></div>
-              goodbye
           </div>
         );
     }
