@@ -3,12 +3,19 @@
  */
 import React, { Component } from 'react';
 
+import $ from 'jquery';
+import jstree from 'jstree';
+
 class Metadata extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
         };
+    }
+
+    componentWillMount() {
+        $(function () { $('#jstree_demo_div').jstree(); });
     }
 
     componentDidMount() {
@@ -32,9 +39,25 @@ class Metadata extends Component {
             this.selectedPhotoDateTaken = dt.toString("M/d/yyyy hh:mm tt");
         }
 
+        let photoData = { 'data' : [
+            'Simple pepperoni pizza',
+            {
+                'text' : 'Root node 2',
+                'state' : {
+                    'opened' : true,
+                    'selected' : true
+                },
+                'children' : [
+                    { 'text' : 'Child 1' },
+                    'Child 2'
+                ]
+            }
+        ]}
+
+        $('#jstree_demo_div').jstree({ 'core' : photoData });
+
         return (
             <div>
-
                 <h4>Metadata</h4>
 
                 <div className="photoMetadata">

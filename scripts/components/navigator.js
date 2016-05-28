@@ -2,6 +2,7 @@
  * Created by tedshaffer on 5/28/16.
  */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import $ from 'jquery';
 import jstree from 'jstree';
@@ -10,13 +11,16 @@ class Navigator extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+        };
+
+        this.navigatorDisplayed = false;
     }
 
     componentWillMount() {
-        $(function () {
-            $('#jstree_demo_div').jstree();
-        });
+        // $(function () {
+        //     $('#jstree_demo_div').jstree();
+        // });
         console.log("navigator componentWillMount invoked");
     }
 
@@ -26,30 +30,44 @@ class Navigator extends Component {
 
     render() {
 
-        let photoData = { 'data' : [
-            'Simple root node pizza',
-            {
-                'text' : 'Root node 2',
-                'state' : {
-                    'opened' : true,
-                    'selected' : true
-                },
-                'children' : [
-                    { 'text' : 'Child 1' },
-                    'Child 2'
-                ]
-            }
-        ]}
+        console.log("navigator.render() - number of props photos is: " + this.props.photos.length.toString());
 
-        $('#jstree_demo_div').jstree({ 'core' : photoData });
+        // if (!this.navigatorDisplayed) {
+        //
+        //     let photoData = { 'data' : [
+        //         'Simple sausage pizza',
+        //         {
+        //             'text' : 'Root node 2',
+        //             'state' : {
+        //                 'opened' : true,
+        //                 'selected' : true
+        //             },
+        //             'children' : [
+        //                 { 'text' : 'Child 1' },
+        //                 'Child 2'
+        //             ]
+        //         }
+        //     ]}
+        //
+        //     $('#jstree_demo_div').jstree({ 'core' : photoData });
+        //     this.navigatorDisplayed = true;
+        // }
 
         return (
           <div>
+              herro
               <div id="jstree_demo_div"></div>
+              goodbye
           </div>
         );
     }
 
 }
 
-export default Navigator;
+function mapStateToProps(state) {
+    return {
+        photos: state.photos
+    };
+}
+
+export default connect(mapStateToProps)(Navigator);
