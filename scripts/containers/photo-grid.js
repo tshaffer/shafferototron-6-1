@@ -255,42 +255,87 @@ class PhotoGrid extends Component {
             openCloseLabel = "<=";
         }
 
+
         let treeNodes = [];
 
-        treeNodes.push('2016');
+        let lastYearTree = -1;
+        let lastMonthTree = -1;
 
+        let yearNode = null;
+        let monthNode = null;
+
+        daysOfPhotos.forEach(function(dayOfPhotos) {
+
+            let dt = new Date(dayOfPhotos.dateTaken);
+            let year = dt.getFullYear();
+            if (year != lastYearTree) {
+                // push existing yearNode
+                if (yearNode) {
+
+                    // push monthNode
+                    if (monthNode) {
+                        yearNode.children.push(monthNode);
+                        monthNode = null;
+                    }
+
+                    treeNodes.push(yearNode);
+                }
+
+                lastYearTree = year;
+                lastMonthTree = -1;
+
+                // create new yearNode
+                yearNode = {};
+                yearNode.text = year.toString();
+                yearNode.state = {'opened': false, 'selected': false};
+                yearNode.children = [];
+            }
+
+            let month = dt.getMonth();
+            if (month != lastMonthTree) {
+
+                if (monthNode) {
+                    yearNode.children.push(monthNode);
+                }
+
+                lastMonthTree = month;
+
+                monthNode = {};
+                let monthStr = month.toString(); // temporary
+                monthNode.text = monthStr;
+            }
+        });
+
+        if (monthNode) {
+            yearNode.children.push(monthNode);
+        }
+        if (yearNode) {
+            treeNodes.push(yearNode);
+        }
+
+        // let treeNodes = [];
+        //
+        // let node1 = {};
+        // node1.text = "2016";
+        // node1.state = { 'opened': true, 'selected': true };
+        // node1.children = [
+        //     { 'text': '4' }
+        // ]
+
+
+        // let treeNodes = [];
+        //
+        // treeNodes.push('2016');
+        //
         // let node2 = {};
-        // node2['text'] = 'Root node 2';
-        // node2['state'] = { 'opened': true, 'selected': true };
-        // node2['children'] = [
-        //     { 'text': 'Child 1'},
-        //     'Child 2'
+        // node2.text = '2015';
+        // node2.state = { 'opened': true, 'selected': true };
+        // node2.children = [
+        //     { 'text': 'Dec'},
+        //     'Nov'
         // ];
-
-        let node2 = {};
-        node2.text = '2015';
-        node2.state = { 'opened': true, 'selected': true };
-        node2.children = [
-            { 'text': 'Dec'},
-            'Nov'
-        ];
-        treeNodes.push(node2);
+        // treeNodes.push(node2);
         let photoData = { 'data': treeNodes };
-
-        // let photoData = { 'data' : [
-        //     'Simple pepperoni pizza',
-        //     {
-        //         'text' : 'Root node 2',
-        //         'state' : {
-        //             'opened' : true,
-        //             'selected' : true
-        //         },
-        //         'children' : [
-        //             { 'text' : 'Child 1' },
-        //             'Child 2'
-        //         ]
-        //     }
-        // ]}
 
         $('#jstree_demo_div').jstree({ 'core' : photoData });
 
