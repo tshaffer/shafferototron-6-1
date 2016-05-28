@@ -26,7 +26,7 @@ app.on('ready', function() {
 
   mainWindow.loadUrl('file://' + __dirname + '/index.html');
 
-  mainWindow.openDevTools();
+  mainWindow.openDevTools(mainWindow, 'bottom');
 
   mainWindow.on('closed', function() {
     mainWindow = null;
