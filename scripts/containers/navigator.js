@@ -149,17 +149,19 @@ renderTreeNodes(treeNodes) {
                 {yearNode.label}
                 </span>;
 
-            yearNode.months.map(monthNode  => {
-                console.log(monthNode.label);
-                monthNode.days.map(dayNode => {
-                    console.log(dayNode.label)
-                })
-            })
+            // yearNode.months.map(monthNode  => {
+            //     console.log(monthNode.label);
+            //     monthNode.days.map(dayNode => {
+            //         console.log(dayNode.label)
+            //     })
+            // })
 
             return (
                 <TreeView
-                    collapsed = {false}
+                    collapsed = {true}
                     nodeLabel = {yearLabel}
+                    onClick={this.handleClick.bind(this)}
+                    className="node"
                     key = {yearNode.label}
                 >
 
@@ -167,6 +169,7 @@ renderTreeNodes(treeNodes) {
                     <TreeView
                         collapsed={false}
                         nodeLabel={monthNode.label}
+                        onClick={this.handleClick.bind(this)}
                         className="node"
                         key={yearNode.label + monthNode.label}>
 
@@ -174,6 +177,7 @@ renderTreeNodes(treeNodes) {
                             <TreeView
                                 collapsed={false}
                                 nodeLabel={dayNode.label}
+                                onClick={this.handleClick.bind(this)}
                                 className="node"
                                 key={yearNode.label + monthNode.label + dayNode.label}>
                             </TreeView>
