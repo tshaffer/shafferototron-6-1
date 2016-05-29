@@ -121,12 +121,19 @@ class Navigator extends Component {
     renderTreeNodes(treeNodes) {
 
         let renderedTreeNodes = treeNodes.map((yearNode, i) => {
+
+            const yearLabel = <span className="node">
+                {yearNode.label}
+                </span>;
+
             return (
                 <TreeView
                     collapsed = {false}
-                    nodeLabel = {yearNode.label}
+                    nodeLabel = {yearLabel}
                     key = {yearNode.label}
                 >
+                {yearNode.months.map(monthNode  => <div className="info" key={yearNode.label + monthNode.label}>{monthNode.label}</div>)}
+
                 </TreeView>
             )
         });
