@@ -28,7 +28,99 @@ class Navigator extends Component {
         this.setState({collapsedBookkeeping: collapsedBookkeeping});
     }
 
+    buildTree() {
+
+        let treeNodes = [];
+
+        if (this.props.photos && this.props.photos.length > 0) {
+
+            let yearNode = null;
+            let monthNode = null;
+            let dayNode = null;
+
+            let lastYear = -1;
+            let lastMonth = -1;
+            let lastDay = -1;
+
+            this.props.photos.forEach(function(dbPhoto, index) {
+
+                let dateTaken = new Date(dbPhoto.dateTaken);
+
+                // has year changed?
+                let year = dateTaken.getFullYear();
+                if (year != lastYear) {
+
+                    // save entry
+                    if (yearNode) {
+                        monthNode.days.push(dayNode);
+                        yearNode.months.push(monthNode);
+                        treeNodes.push(yearNode);
+
+                        monthNode = null;
+                        dayNode = null;
+                    }
+
+                    // create new entry
+                    yearNode = new Object();
+                    yearNode.label = year.toString();
+                    yearNode.months = [];
+
+                    lastYear = year;
+                    lastMonth = -1;
+                    lastDay = -1;
+                }
+
+                // has month changed?
+                let month = dateTaken.getMonth();
+                if (month != lastMonth) {
+
+                    // save entry
+                    if (monthNode) {
+                        monthNode.days.push(dayNode);
+                        yearNode.months.push(monthNode);
+
+                        dayNode = null;
+                    }
+
+                    // create new entry
+                    monthNode = new Object();
+                    monthNode.label = month.toString();
+                    monthNode.days = [];
+
+                    lastMonth = month;
+                    lastDay = -1;
+                }
+
+                // has day changed?
+                let day = dateTaken.getDate();
+                if (day != lastDay) {
+
+                    // save entry
+                    if (dayNode) {
+                        monthNode.days.push(dayNode);
+                    }
+
+                    // create new entry
+                    dayNode = new Object();
+                    dayNode.label = day.toString();
+
+                    lastDay = day;
+                }
+            });
+
+            if (yearNode) {
+                monthNode.days.push(dayNode);
+                yearNode.months.push(monthNode);
+                treeNodes.push(yearNode);
+            }
+        }
+
+        return treeNodes;
+    }
+
     render() {
+
+        let treeNodes = this.buildTree();
 
         const label1 =
             <span className="node">
