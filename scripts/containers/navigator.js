@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import TreeView from 'react-treeview';
 import { connect } from 'react-redux';
 
+// https://github.com/chenglou/react-treeview
+
 class Navigator extends Component {
 
     constructor(props) {
