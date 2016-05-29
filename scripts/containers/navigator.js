@@ -162,7 +162,7 @@ class Navigator extends Component {
                     }
 
                     // create new entry
-                    yearNode = new Object();
+                    yearNode = {};
                     yearNode.label = year.toString();
                     yearNode.months = [];
 
@@ -184,7 +184,7 @@ class Navigator extends Component {
                     }
 
                     // create new entry
-                    monthNode = new Object();
+                    monthNode = {};
                     monthNode.label = self.getMonthLabel(month);
                     monthNode.html = <span className="node" onClick={self.handleClickMonth.bind(self, monthNode.label)}>{monthNode.label}</span>;
                     monthNode.days = [];
@@ -203,7 +203,7 @@ class Navigator extends Component {
                     }
 
                     // create new entry
-                    dayNode = new Object();
+                    dayNode = {};
                     dayNode.label = day.toString();
                     dayNode.html = <span className="node" onClick={self.handleClickDay.bind(self, yearNode.label, monthNode.label, dayNode.label)}>{dayNode.label}</span>;
 

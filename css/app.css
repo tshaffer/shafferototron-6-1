@@ -15,7 +15,7 @@ body {
 }
 
 .photosDiv {
-    flex: 3;
+    flex: 12;
     overflow-y: scroll;
     position: relative;
 }
@@ -115,7 +115,7 @@ body {
 }
 
 .metadata {
-    flex: 1;
+    flex: 4;
 }
 
 .metadataSubheading {
