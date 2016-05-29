@@ -10,7 +10,8 @@ class Navigator extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            collapsedBookkeeping: true
+            collapsedStateYears: {},
+            collapsedStateMonths: {}
         };
     }
 
@@ -22,13 +23,112 @@ class Navigator extends Component {
         console.log("navigator componentDidMount invoked");
     }
 
-    handleClick() {
-        let collapsedBookkeeping = this.state.collapsedBookkeeping;
-        collapsedBookkeeping = !this.state.collapsedBookkeeping;
-        this.setState({collapsedBookkeeping: collapsedBookkeeping});
+    getMonthLabel(month) {
+        let monthLabel = "";
+        switch (month) {
+            case 0:
+                monthLabel = "Jan";
+                break;
+            case 1:
+                monthLabel = "Feb";
+                break;
+            case 2:
+                monthLabel = "Mar";
+                break;
+            case 3:
+                monthLabel = "Apr";
+                break;
+            case 4:
+                monthLabel = "May";
+                break;
+            case 5:
+                monthLabel = "Jun";
+                break;
+            case 6:
+                monthLabel = "Jul";
+                break;
+            case 7:
+                monthLabel = "Aug";
+                break;
+            case 8:
+                monthLabel = "Sep";
+                break;
+            case 9:
+                monthLabel = "Oct";
+                break;
+            case 10:
+                monthLabel = "Nov";
+                break;
+            case 11:
+                monthLabel = "Dec";
+                break;
+        }
+
+        return monthLabel;
+    }
+
+
+    copyCollapsedStateYears() {
+
+        let collapsedStateYears = {};
+
+        for (var year in this.state.collapsedStateYears) {
+            if (this.state.collapsedStateYears.hasOwnProperty(year)) {
+                collapsedStateYears[year] = this.state.collapsedStateYears[year];
+            }
+        }
+
+        return collapsedStateYears;
+    }
+
+
+    handleClickYear(year) {
+
+        let collapsedStateYears = this.copyCollapsedStateYears();
+
+        if (!(year in collapsedStateYears)) {
+            collapsedStateYears[year] = false;
+        }
+        else {
+            collapsedStateYears[year] = !collapsedStateYears[year];
+        }
+        this.setState({collapsedStateYears: collapsedStateYears});
+    }
+
+    copyCollapsedStateMonths() {
+
+        let collapsedStateMonths = {};
+
+        for (var month in this.state.collapsedStateMonths) {
+            if (this.state.collapsedStateMonths.hasOwnProperty(month)) {
+                collapsedStateMonths[month] = this.state.collapsedStateMonths[month];
+            }
+        }
+
+        return collapsedStateMonths;
+    }
+
+
+    handleClickMonth(month) {
+
+        let collapsedStateMonths = this.copyCollapsedStateMonths();
+
+        if (!(month in collapsedStateMonths)) {
+            collapsedStateMonths[month] = false;
+        }
+        else {
+            collapsedStateMonths[month] = !collapsedStateMonths[month];
+        }
+        this.setState({collapsedStateMonths: collapsedStateMonths});
+    }
+
+
+    handleClickDay(day) {
     }
 
     buildTree() {
+
+        var self = this;
 
         let treeNodes = [];
 
@@ -84,7 +184,7 @@ class Navigator extends Component {
 
                     // create new entry
                     monthNode = new Object();
-                    monthNode.label = month.toString();
+                    monthNode.label = self.getMonthLabel(month);
                     monthNode.days = [];
 
                     lastMonth = month;
@@ -118,30 +218,7 @@ class Navigator extends Component {
         return treeNodes;
     }
 
-// <div className="info" key={yearNode.label + monthNode.label}>{monthNode.label}</div>
-
-// <div
-// className="info" key={yearNode.label + monthNode.label}>{monthNode.label}
-// </div>
-
-// {yearNode.months.map(monthNode  =>
-//      <TreeView
-//          collapsed={false}
-//          nodeLabel={monthNode.label}
-//          className="node"
-//          key={yearNode.label + monthNode.label}>
-//      </TreeView>
-// )}
-
-// {yearNode.months.map(monthNode  => {
-// <div>{monthNode.label}</div>
-//     monthNode.days.map(dayNode => {
-// <div>{dayNode.label}</div>
-// })
-// })}
-
-
-renderTreeNodes(treeNodes) {
+    renderTreeNodes(treeNodes) {
 
         let renderedTreeNodes = treeNodes.map((yearNode, i) => {
 
@@ -149,35 +226,28 @@ renderTreeNodes(treeNodes) {
                 {yearNode.label}
                 </span>;
 
-            // yearNode.months.map(monthNode  => {
-            //     console.log(monthNode.label);
-            //     monthNode.days.map(dayNode => {
-            //         console.log(dayNode.label)
-            //     })
-            // })
-
             return (
                 <TreeView
-                    collapsed = {true}
+                    collapsed = {this.state.collapsedStateYears[yearNode.label] == false ? false : true }
                     nodeLabel = {yearLabel}
-                    onClick={this.handleClick.bind(this)}
+                    onClick={this.handleClickYear.bind(this, yearNode.label)}
                     className="node"
                     key = {yearNode.label}
                 >
 
                 {yearNode.months.map(monthNode  =>
                     <TreeView
-                        collapsed={false}
+                        collapsed = {this.state.collapsedStateMonths[monthNode.label] == false ? false : true }
                         nodeLabel={monthNode.label}
-                        onClick={this.handleClick.bind(this)}
+                        onClick={this.handleClickMonth.bind(this, monthNode.label)}
                         className="node"
                         key={yearNode.label + monthNode.label}>
 
                         {monthNode.days.map(dayNode =>
                             <TreeView
-                                collapsed={false}
+                                collapsed={true}
                                 nodeLabel={dayNode.label}
-                                onClick={this.handleClick.bind(this)}
+                                onClick={this.handleClickDay.bind(this, dayNode.label)}
                                 className="node"
                                 key={yearNode.label + monthNode.label + dayNode.label}>
                             </TreeView>
@@ -202,71 +272,7 @@ renderTreeNodes(treeNodes) {
                 {renderedTreeNodes}
             </div>
         );
-
-        // const label1 =
-        //     <span className="node">
-        //       Pizza
-        //     </span>;
-        //
-        // const label2 =
-        //     <span className="node">
-        //       Salami
-        //     </span>;
-        //
-        // const label3 =
-        //     <span className="node">
-        //       Grandparent
-        //     </span>;
-        //
-        // const label4 =
-        //     <span className="node">
-        //       Parent
-        //     </span>;
-        //
-        // const label5 =
-        //     <span className="node">
-        //       Child 3
-        //     </span>;
-        //
-        // const label6 =
-        //     <span className="node">
-        //       Child 4
-        //     </span>;
-        //
-        // return (
-        //     <div>
-        //         <div>All Photos</div>
-        //         <TreeView
-        //             collapsed = {false}
-        //             nodeLabel = {label1}>
-        //         </TreeView>
-        //         <TreeView
-        //             collapsed = {false}
-        //             nodeLabel = {label3}>
-        //             <TreeView
-        //                 onClick={this.handleClick.bind(this)}
-        //                 collapsed = {this.state.collapsedBookkeeping}
-        //                 nodeLabel = {label4}>
-        //                 <TreeView
-        //                     collapsed={true}
-        //                     nodeLabel={label5}>
-        //                     </TreeView>
-        //                 <TreeView
-        //                     collapsed={true}
-        //                     nodeLabel={label6}>
-        //                     </TreeView>
-        //             </TreeView>
-        //         </TreeView>
-        //         <TreeView
-        //             collapsed = {true}
-        //             nodeLabel = {label2}>
-        //             <div className="info">Child 1</div>
-        //             <div className="info">Child 2</div>
-        //         </TreeView>
-        //     </div>
-        // );
     }
-
 }
 
 function mapStateToProps(state) {
