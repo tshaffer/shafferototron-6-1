@@ -118,72 +118,95 @@ class Navigator extends Component {
         return treeNodes;
     }
 
+    renderTreeNodes(treeNodes) {
+
+        let renderedTreeNodes = treeNodes.map((yearNode, i) => {
+            return (
+                <TreeView
+                    collapsed = {false}
+                    nodeLabel = {yearNode.label}
+                    key = {yearNode.label}
+                >
+                </TreeView>
+            )
+        });
+        return renderedTreeNodes;
+    }
+
     render() {
 
         let treeNodes = this.buildTree();
-
-        const label1 =
-            <span className="node">
-              Pizza
-            </span>;
-
-        const label2 =
-            <span className="node">
-              Salami
-            </span>;
-
-        const label3 =
-            <span className="node">
-              Grandparent
-            </span>;
-
-        const label4 =
-            <span className="node">
-              Parent
-            </span>;
-
-        const label5 =
-            <span className="node">
-              Child 3
-            </span>;
-
-        const label6 =
-            <span className="node">
-              Child 4
-            </span>;
+        let renderedTreeNodes = this.renderTreeNodes(treeNodes);
 
         return (
             <div>
                 <div>All Photos</div>
-                <TreeView
-                    collapsed = {false}
-                    nodeLabel = {label1}>
-                </TreeView>
-                <TreeView
-                    collapsed = {false}
-                    nodeLabel = {label3}>
-                    <TreeView
-                        onClick={this.handleClick.bind(this)}
-                        collapsed = {this.state.collapsedBookkeeping}
-                        nodeLabel = {label4}>
-                        <TreeView
-                            collapsed={true}
-                            nodeLabel={label5}>
-                            </TreeView>
-                        <TreeView
-                            collapsed={true}
-                            nodeLabel={label6}>
-                            </TreeView>
-                    </TreeView>
-                </TreeView>
-                <TreeView
-                    collapsed = {true}
-                    nodeLabel = {label2}>
-                    <div className="info">Child 1</div>
-                    <div className="info">Child 2</div>
-                </TreeView>
+                {renderedTreeNodes}
             </div>
         );
+
+        // const label1 =
+        //     <span className="node">
+        //       Pizza
+        //     </span>;
+        //
+        // const label2 =
+        //     <span className="node">
+        //       Salami
+        //     </span>;
+        //
+        // const label3 =
+        //     <span className="node">
+        //       Grandparent
+        //     </span>;
+        //
+        // const label4 =
+        //     <span className="node">
+        //       Parent
+        //     </span>;
+        //
+        // const label5 =
+        //     <span className="node">
+        //       Child 3
+        //     </span>;
+        //
+        // const label6 =
+        //     <span className="node">
+        //       Child 4
+        //     </span>;
+        //
+        // return (
+        //     <div>
+        //         <div>All Photos</div>
+        //         <TreeView
+        //             collapsed = {false}
+        //             nodeLabel = {label1}>
+        //         </TreeView>
+        //         <TreeView
+        //             collapsed = {false}
+        //             nodeLabel = {label3}>
+        //             <TreeView
+        //                 onClick={this.handleClick.bind(this)}
+        //                 collapsed = {this.state.collapsedBookkeeping}
+        //                 nodeLabel = {label4}>
+        //                 <TreeView
+        //                     collapsed={true}
+        //                     nodeLabel={label5}>
+        //                     </TreeView>
+        //                 <TreeView
+        //                     collapsed={true}
+        //                     nodeLabel={label6}>
+        //                     </TreeView>
+        //             </TreeView>
+        //         </TreeView>
+        //         <TreeView
+        //             collapsed = {true}
+        //             nodeLabel = {label2}>
+        //             <div className="info">Child 1</div>
+        //             <div className="info">Child 2</div>
+        //         </TreeView>
+        //     </div>
+        // );
     }
 
 }
