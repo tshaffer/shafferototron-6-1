@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import TreeView from 'react-treeview';
+import { connect } from 'react-redux';
 
 class Navigator extends Component {
 
@@ -95,4 +96,10 @@ class Navigator extends Component {
 
 }
 
-export default Navigator;
+function mapStateToProps(state) {
+    return {
+        photos: state.photos
+    };
+}
+
+export default connect(mapStateToProps)(Navigator);
