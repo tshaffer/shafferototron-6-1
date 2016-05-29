@@ -186,6 +186,7 @@ class Navigator extends Component {
                     // create new entry
                     monthNode = new Object();
                     monthNode.label = self.getMonthLabel(month);
+                    monthNode.html = <span className="node" onClick={self.handleClickMonth.bind(self, monthNode.label)}>{monthNode.label}</span>;
                     monthNode.days = [];
 
                     lastMonth = month;
@@ -204,8 +205,7 @@ class Navigator extends Component {
                     // create new entry
                     dayNode = new Object();
                     dayNode.label = day.toString();
-                    dayNode.yearLabel = yearNode.label;
-                    dayNode.monthLabel = monthNode.label;
+                    dayNode.html = <span className="node" onClick={self.handleClickDay.bind(self, yearNode.label, monthNode.label, dayNode.label)}>{dayNode.label}</span>;
 
                     lastDay = day;
                 }
@@ -225,7 +225,7 @@ class Navigator extends Component {
 
         let renderedTreeNodes = treeNodes.map((yearNode, i) => {
 
-            const yearLabel = <span className="node">
+            const yearLabel = <span className="node" onClick={this.handleClickYear.bind(this, yearNode.label)}>
                 {yearNode.label}
                 </span>;
 
@@ -241,7 +241,7 @@ class Navigator extends Component {
                 {yearNode.months.map(monthNode  =>
                     <TreeView
                         collapsed = {this.state.collapsedStateMonths[monthNode.label] == false ? false : true }
-                        nodeLabel={monthNode.label}
+                        nodeLabel={monthNode.html}
                         onClick={this.handleClickMonth.bind(this, monthNode.label)}
                         className="node"
                         key={yearNode.label + monthNode.label}>
@@ -249,7 +249,7 @@ class Navigator extends Component {
                         {monthNode.days.map(dayNode =>
                             <TreeView
                                 collapsed={false}
-                                nodeLabel={dayNode.label}
+                                nodeLabel={dayNode.html}
                                 onClick={this.handleClickDay.bind(this, dayNode.yearLabel, dayNode.monthLabel, dayNode.label)}
                                 className="node"
                                 key={yearNode.label + monthNode.label + dayNode.label}>
