@@ -123,7 +123,8 @@ class Navigator extends Component {
     }
 
 
-    handleClickDay(day) {
+    handleClickDay(year, month, day) {
+        console.log("clicked on ", year, month, day);
     }
 
     buildTree() {
@@ -203,6 +204,8 @@ class Navigator extends Component {
                     // create new entry
                     dayNode = new Object();
                     dayNode.label = day.toString();
+                    dayNode.yearLabel = yearNode.label;
+                    dayNode.monthLabel = monthNode.label;
 
                     lastDay = day;
                 }
@@ -245,9 +248,9 @@ class Navigator extends Component {
 
                         {monthNode.days.map(dayNode =>
                             <TreeView
-                                collapsed={true}
+                                collapsed={false}
                                 nodeLabel={dayNode.label}
-                                onClick={this.handleClickDay.bind(this, dayNode.label)}
+                                onClick={this.handleClickDay.bind(this, dayNode.yearLabel, dayNode.monthLabel, dayNode.label)}
                                 className="node"
                                 key={yearNode.label + monthNode.label + dayNode.label}>
                             </TreeView>
