@@ -118,6 +118,12 @@ class Navigator extends Component {
         return treeNodes;
     }
 
+// <div className="info" key={yearNode.label + monthNode.label}>{monthNode.label}</div>
+
+// <div
+// className="info" key={yearNode.label + monthNode.label}>{monthNode.label}
+// </div>
+
     renderTreeNodes(treeNodes) {
 
         let renderedTreeNodes = treeNodes.map((yearNode, i) => {
@@ -132,7 +138,14 @@ class Navigator extends Component {
                     nodeLabel = {yearLabel}
                     key = {yearNode.label}
                 >
-                {yearNode.months.map(monthNode  => <div className="info" key={yearNode.label + monthNode.label}>{monthNode.label}</div>)}
+                {yearNode.months.map(monthNode  =>
+                    <TreeView
+                        collapsed={false}
+                        nodeLabel={monthNode.label}
+                        className="node"
+                        key={yearNode.label + monthNode.label}>
+                    </TreeView>
+                )}
 
                 </TreeView>
             )
