@@ -124,7 +124,24 @@ class Navigator extends Component {
 // className="info" key={yearNode.label + monthNode.label}>{monthNode.label}
 // </div>
 
-    renderTreeNodes(treeNodes) {
+// {yearNode.months.map(monthNode  =>
+//      <TreeView
+//          collapsed={false}
+//          nodeLabel={monthNode.label}
+//          className="node"
+//          key={yearNode.label + monthNode.label}>
+//      </TreeView>
+// )}
+
+// {yearNode.months.map(monthNode  => {
+// <div>{monthNode.label}</div>
+//     monthNode.days.map(dayNode => {
+// <div>{dayNode.label}</div>
+// })
+// })}
+
+
+renderTreeNodes(treeNodes) {
 
         let renderedTreeNodes = treeNodes.map((yearNode, i) => {
 
@@ -132,18 +149,35 @@ class Navigator extends Component {
                 {yearNode.label}
                 </span>;
 
+            yearNode.months.map(monthNode  => {
+                console.log(monthNode.label);
+                monthNode.days.map(dayNode => {
+                    console.log(dayNode.label)
+                })
+            })
+
             return (
                 <TreeView
                     collapsed = {false}
                     nodeLabel = {yearLabel}
                     key = {yearNode.label}
                 >
+
                 {yearNode.months.map(monthNode  =>
                     <TreeView
                         collapsed={false}
                         nodeLabel={monthNode.label}
                         className="node"
                         key={yearNode.label + monthNode.label}>
+
+                        {monthNode.days.map(dayNode =>
+                            <TreeView
+                                collapsed={false}
+                                nodeLabel={dayNode.label}
+                                className="node"
+                                key={yearNode.label + monthNode.label + dayNode.label}>
+                            </TreeView>
+                        )}
                     </TreeView>
                 )}
 
