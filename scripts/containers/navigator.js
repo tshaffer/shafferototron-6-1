@@ -127,6 +127,16 @@ class Navigator extends Component {
 
     handleClickDay(year, month, day) {
         console.log("clicked on ", year, month, day);
+
+        if (day.length == 1) {
+            day = "0" + day;
+        }
+
+        let targetId = month + " " + day + ", " + year;
+        var element = document.getElementById(targetId);
+        if (element) {
+            element.scrollIntoView();
+        }
     }
 
     buildTree() {

@@ -236,7 +236,7 @@ class PhotoGrid extends Component {
             let formattedDateTime = self.getMonthLabel(dayOfPhotos.dateTaken) + " " + dayOfPhotos.dateTaken.toString("dd, yyyy");
             return (
                 <div className="dayOfPhotosDiv" key={Math.random().toString()}>
-                    <p className="dayOfPhotosLabel">{formattedDateTime}</p>
+                    <p id={formattedDateTime} className="dayOfPhotosLabel">{formattedDateTime}</p>
                     <ul className="flex-container wrap">
                         {self.getDayOfPhotoNodes(dayOfPhotos)}
                     </ul>
