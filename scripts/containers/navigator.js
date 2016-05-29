@@ -44,16 +44,47 @@ class Navigator extends Component {
               Grandparent
             </span>;
 
+        const label4 =
+            <span className="node">
+              Parent
+            </span>;
+
+        const label5 =
+            <span className="node">
+              Child 3
+            </span>;
+
+        const label6 =
+            <span className="node">
+              Child 4
+            </span>;
+
         return (
             <div>
-                <div>herro</div>
+                <div>All Photos</div>
                 <TreeView
                     collapsed = {false}
                     nodeLabel = {label1}>
                 </TreeView>
                 <TreeView
-                    collapsed = {this.state.collapsedBookkeeping}
-                    onClick={this.handleClick.bind(this)}
+                    collapsed = {false}
+                    nodeLabel = {label3}>
+                    <TreeView
+                        onClick={this.handleClick.bind(this)}
+                        collapsed = {this.state.collapsedBookkeeping}
+                        nodeLabel = {label4}>
+                        <TreeView
+                            collapsed={true}
+                            nodeLabel={label5}>
+                            </TreeView>
+                        <TreeView
+                            collapsed={true}
+                            nodeLabel={label6}>
+                            </TreeView>
+                    </TreeView>
+                </TreeView>
+                <TreeView
+                    collapsed = {true}
                     nodeLabel = {label2}>
                     <div className="info">Child 1</div>
                     <div className="info">Child 2</div>
