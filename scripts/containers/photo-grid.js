@@ -20,11 +20,13 @@ class PhotoGrid extends Component {
         };
         this.photosById = {};
         this.selectedPhotos = {};
+
+        this.numTimesThrough = 0;
     }
 
     componentWillMount() {
 
-        $(function () { $('#jstree_demo_div').jstree(); });
+        // $(function () { $('#jstree_demo_div').jstree(); });
 
         console.log("photo-grid: componentWillMount invoked");
         this.props.fetchPhotos();
@@ -255,78 +257,106 @@ class PhotoGrid extends Component {
             openCloseLabel = "<=";
         }
 
-
-        let treeNodes = [];
-
-        let lastYearTree = -1;
-        let lastMonthTree = -1;
-
-        let yearNode = null;
-        let monthNode = null;
-
-        daysOfPhotos.forEach(function(dayOfPhotos) {
-
-            let dt = new Date(dayOfPhotos.dateTaken);
-            let year = dt.getFullYear();
-            if (year != lastYearTree) {
-                // push existing yearNode
-                if (yearNode) {
-
-                    // push monthNode
-                    if (monthNode) {
-                        yearNode.children.push(monthNode);
-                        monthNode = null;
-                    }
-
-                    treeNodes.push(yearNode);
-                }
-
-                lastYearTree = year;
-                lastMonthTree = -1;
-
-                // create new yearNode
-                yearNode = {};
-                yearNode.text = year.toString();
-                yearNode.state = {'opened': false, 'selected': false};
-                yearNode.children = [];
-            }
-
-            let month = dt.getMonth();
-            if (month != lastMonthTree) {
-
-                if (monthNode) {
-                    yearNode.children.push(monthNode);
-                }
-
-                lastMonthTree = month;
-
-                monthNode = {};
-                let monthStr = month.toString(); // temporary
-                monthNode.text = monthStr;
-            }
-        });
-
-        if (monthNode) {
-            yearNode.children.push(monthNode);
-        }
-        if (yearNode) {
-            treeNodes.push(yearNode);
-        }
+        // let treeNodes = [];
+        //
+        // let lastYearTree = -1;
+        // let lastMonthTree = -1;
+        //
+        // let yearNode = null;
+        // let monthNode = null;
+        //
+        // daysOfPhotos.forEach(function(dayOfPhotos) {
+        //
+        //     let dt = new Date(dayOfPhotos.dateTaken);
+        //     let year = dt.getFullYear();
+        //     if (year != lastYearTree) {
+        //         // push existing yearNode
+        //         if (yearNode) {
+        //
+        //             // push monthNode
+        //             if (monthNode) {
+        //                 yearNode.children.push(monthNode);
+        //                 monthNode = null;
+        //             }
+        //
+        //             treeNodes.push(yearNode);
+        //         }
+        //
+        //         lastYearTree = year;
+        //         lastMonthTree = -1;
+        //
+        //         // create new yearNode
+        //         yearNode = {};
+        //         yearNode.text = year.toString();
+        //         yearNode.state = {'opened': false, 'selected': false};
+        //         yearNode.children = [];
+        //     }
+        //
+        //     let month = dt.getMonth();
+        //     if (month != lastMonthTree) {
+        //
+        //         if (monthNode) {
+        //             yearNode.children.push(monthNode);
+        //         }
+        //
+        //         lastMonthTree = month;
+        //
+        //         monthNode = {};
+        //         let monthStr = month.toString(); // temporary
+        //         monthNode.text = monthStr;
+        //     }
+        // });
+        //
+        // if (monthNode) {
+        //     yearNode.children.push(monthNode);
+        // }
+        // if (yearNode) {
+        //     treeNodes.push(yearNode);
+        // }
 
         // let treeNodes = [];
         //
-        // let node1 = {};
-        // node1.text = "2016";
-        // node1.state = { 'opened': true, 'selected': true };
-        // node1.children = [
+        // if (daysOfPhotos.length > 0) {
+        //
+        //     let node1 = {};
+        //     node1.text = "2016";
+        //     node1.state = { 'opened': false, 'selected': false };
+        //     node1.children = [
+        //         { 'text': '4' }
+        //     ]
+        //     treeNodes.push(node1);
+        //
+        //     let node2 = {};
+        //     node2.text = "2015";
+        //     node2.state = { 'opened': false, 'selected': false };
+        //     node2.children = [
+        //         { 'text': '11' }
+        //     ]
+        //     treeNodes.push(node2);
+        //
+        // }
+        // else {
+        //     let node1 = {};
+        //     node1.text = "2016";
+        //     node1.state = { 'opened': false, 'selected': false };
+        //     node1.children = [
+        //         { 'text': '4' }
+        //     ]
+        //     treeNodes.push(node1);
+        // }
+        //
+        // let photoData = { 'data': treeNodes };
+        //
+        // $('#jstree_demo_div').jstree({ 'core' : photoData });
+
+        // node.text = "2015";
+        // node.state = { 'opened': true, 'selected': true };
+        // node.children = [
         //     { 'text': '4' }
         // ]
+        // treeNodes.push(node);
 
 
-        // let treeNodes = [];
-        //
-        // treeNodes.push('2016');
-        //
         // let node2 = {};
         // node2.text = '2015';
         // node2.state = { 'opened': true, 'selected': true };
@@ -335,9 +365,114 @@ class PhotoGrid extends Component {
         //     'Nov'
         // ];
         // treeNodes.push(node2);
-        let photoData = { 'data': treeNodes };
 
-        $('#jstree_demo_div').jstree({ 'core' : photoData });
+
+        // let treeNodes = [];
+        // let node = {};
+        // node.text = "2016";
+        // node.state = { 'opened': true, 'selected': true };
+        // node.children = [
+        //     { 'text': '4' }
+        // ]
+        // treeNodes.push(node);
+        //
+        // let node1 = {};
+        // node1.text = "2015";
+        // node1.state = { 'opened': true, 'selected': true };
+        // node1.children = [
+        //     { 'text': '11' }
+        // ]
+        // treeNodes.push(node1);
+        //
+        // let photoData = { 'data': treeNodes };
+        // $('#jstree_demo_div').jstree({ 'core' : photoData });
+
+        if (this.numTimesThrough == 1) {
+
+            $(function () { $('#jstree_demo_div').jstree(); });
+            // $('#jstree_demo_div').jstree();
+
+            // let treeNodes = [];
+            // let node = {};
+            // node.text = "2016";
+            // node.state = { 'opened': true, 'selected': false };
+            // node.children = [
+            //     { 'text': '4' }
+            // ]
+            // treeNodes.push(node);
+            //
+            // let node1 = {};
+            // node1.text = "2015";
+            // node1.state = { 'opened': true, 'selected': false };
+            // node1.children = [
+            //     { 'text': '11' }
+            // ]
+            // treeNodes.push(node1);
+            //
+            // let photoData = { 'data': treeNodes };
+            // $('#jstree_demo_div').jstree({ 'core' : photoData });
+
+            $('#jstree_demo_div').jstree({
+                'core' : {
+                    'data' : [
+                        'Simple root node',
+                        {
+                            'id' : 'node_2',
+                            'text' : 'Root node with options',
+                            'state' : { 'opened' : true, 'selected' : true },
+                            'children' : [ { 'text' : 'Child 1' }, 'Child 2']
+                        }
+                    ],
+                    'multiple': true
+                }
+            });
+            let createdNode = $('#jstree_demo_div').jstree(true).create_node("#", "Fred");
+            // $.jstree.reference('#jstree_demo_div').select_all();
+            // // $('#jstree_demo_div').jstree(true).select_all();
+            // // $('#jstree_demo_div').jstree('select_all');
+            // // $('#jstree_demo_div').jstree(true).select_all();
+            $('#jstree_demo_div').jstree(true).redraw(true);
+            // //
+            // let selectedNodes = $('#jstree_demo_div').jstree(true).get_selected(true);
+        }
+        else if (this.numTimesThrough == 2) {
+
+            // $('#jstree_demo_div').jstree({
+            //     'core' : {
+            //         'data' : [
+            //             'Simple root node',
+            //             {
+            //                 'id' : 'node_2',
+            //                 'text' : 'Root node with options',
+            //                 'state' : { 'opened' : true, 'selected' : true },
+            //                 'children' : [ { 'text' : 'Child 1' }, 'Child 2']
+            //             }
+            //         ],
+            //         'multiple': true
+            //     }
+            // });
+
+            // $.jstree.reference('#jstree_demo_div').select_all();
+            // $('#jstree_demo_div').jstree(true).select_all();
+            // $('#jstree_demo_div').jstree('select_all');
+            // $('#jstree_demo_div').jstree(true).select_all();
+            $('#jstree_demo_div').jstree(true).redraw(true);
+            //
+            // let selectedNodes = $('#jstree_demo_div').jstree(true).get_selected(true);
+
+        }
+        console.log("numTimesThrough = " + this.numTimesThrough.toString());
+        this.numTimesThrough++;
+
+        // let ele = $('#jstree_demo_div');
+        // ele.jstree({ 'core' : photoData });
+        // ele.jstree(true).create_node('null', 'pizza');
+
+        // let ele = $('#jstree_demo_div');
+        // if (ele) {
+        //     let navigatorTree = $.jstree.create(ele);
+        //     let pizzaNode = navigatorTree.create_node('null', 'pizza');
+        // }
 
         return (
 
