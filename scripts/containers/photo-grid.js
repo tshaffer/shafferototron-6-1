@@ -7,6 +7,7 @@ import { selectPhoto } from '../actions/index';
 import { updateSelectedPhotos } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import { fetchPhotos } from '../actions/index';
+import Scroll from 'react-scroll';
 
 class PhotoGrid extends Component {
 
@@ -172,6 +173,12 @@ class PhotoGrid extends Component {
         return photo;
     }
 
+    scrollToTop() {
+        let scroll = Scroll.animateScroll;
+        scroll.scrollToTop();
+    }
+
+
     render() {
 
         let self = this;
@@ -231,12 +238,13 @@ class PhotoGrid extends Component {
             daysOfPhotos.push(dayOfPhotos);
         }
 
+
         let daysOfPhotosNodes = daysOfPhotos.map(function(dayOfPhotos) {
 
             let formattedDateTime = self.getMonthLabel(dayOfPhotos.dateTaken) + " " + dayOfPhotos.dateTaken.toString("dd, yyyy");
             return (
                 <div className="dayOfPhotosDiv" key={Math.random().toString()}>
-                    <p className="dayOfPhotosLabel">{formattedDateTime}</p>
+                    <p id={formattedDateTime} className="dayOfPhotosLabel element">{formattedDateTime}</p>
                     <ul className="flex-container wrap">
                         {self.getDayOfPhotoNodes(dayOfPhotos)}
                     </ul>
@@ -249,11 +257,19 @@ class PhotoGrid extends Component {
             openCloseLabel = "<=";
         }
 
+        var Link = Scroll.Link;
+        var Element = Scroll.Element;
+
         return (
 
             <div>
+                <Element name="test1" className="element">
+                    test 1
+                </Element>
                 <button id="openCloseIcon" className="plainButton" type="button" onClick={this.props.onToggleOpenCloseSidebar.bind(this)}>{openCloseLabel}</button>
                 {daysOfPhotosNodes}
+                <Link activeClass="active" className="test1" to="test1" spy={true} smooth={true} duration={500} >Test 1</Link>
+                <a onClick={this.scrollToTop}>To the top!</a>
             </div>
 
         );

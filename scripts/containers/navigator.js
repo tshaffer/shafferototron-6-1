@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import TreeView from 'react-treeview';
 import { connect } from 'react-redux';
+import Scroll from 'react-scroll';
 
 // https://github.com/chenglou/react-treeview
 
@@ -127,6 +128,18 @@ class Navigator extends Component {
 
     handleClickDay(year, month, day) {
         console.log("clicked on ", year, month, day);
+
+        var Element = Scroll.Element;
+        var scroller = Scroll.scroller;
+
+        // <Element name="myScrollToElement"></Element>
+
+// Somewhere else, even another file
+        scroller.scrollTo('myScrollToElement', {
+            duration: 1500,
+            delay: 100,
+            smooth: true,
+        })
     }
 
     buildTree() {
