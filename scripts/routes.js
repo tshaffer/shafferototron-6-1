@@ -6,7 +6,12 @@ import { Route, IndexRoute } from 'react-router';
 
 import App from './components/app';
 
+const Greeting = () => {
+    return <div>Herro</div>;
+}
 export default (
-    <Route path="/" component={App} />
+    <Route path="/" component={App}>
+        <Route path="/herro" component={Greeting}/>
+    </Route>
 );
 

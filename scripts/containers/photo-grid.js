@@ -8,6 +8,8 @@ import { updateSelectedPhotos } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import { fetchPhotos } from '../actions/index';
 
+import { Link } from 'react-router';
+
 class PhotoGrid extends Component {
 
     constructor(props) {
@@ -252,6 +254,7 @@ class PhotoGrid extends Component {
         return (
 
             <div>
+                <Link to="/herro">Herro</Link>
                 <button id="openCloseIcon" className="plainButton" type="button" onClick={this.props.onToggleOpenCloseSidebar.bind(this)}>{openCloseLabel}</button>
                 {daysOfPhotosNodes}
             </div>
