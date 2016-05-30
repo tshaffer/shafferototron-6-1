@@ -12,7 +12,7 @@ class Photo extends Component {
         const url = "http://localhost:3000/" + photoSpec[0].split("^").join("/");
 
         const orientationSpec = photoSpec[1];
-        const orientationValue = orientationSpec.substr(1);
+        const orientationValue = orientationSpec.substr(2);
 
         // didn't work - only worked when div dimensions set via CSS
         // const ww = window.innerWidth;
