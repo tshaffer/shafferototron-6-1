@@ -241,3 +241,7 @@ button:focus { outline: none; }
     max-height: 100%;
 }
 
+.rotateImg {
+    -webkit-transform: rotate(90deg);
+}
+

@@ -36,7 +36,9 @@ class PhotoGrid extends Component {
     displayFullSizePhoto(photo) {
         console.log("displayFullSizePhoto");
 
-        const photoSpec = photo.url.split("/").join("^");
+        let photoSpec = photo.url.split("/").join("^");
+        photoSpec += "|" + "O" + photo.orientation.toString();
+        
         hashHistory.push('/photo/' + photoSpec);
     }
 
