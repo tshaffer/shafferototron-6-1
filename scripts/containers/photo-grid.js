@@ -35,7 +35,9 @@ class PhotoGrid extends Component {
 
     displayFullSizePhoto(photo) {
         console.log("displayFullSizePhoto");
-        hashHistory.push('/herro');
+
+        const photoSpec = photo.url.split("/").join("^");
+        hashHistory.push('/photo/' + photoSpec);
     }
 
     togglePhotoSelection(photo) {

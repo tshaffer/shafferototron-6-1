@@ -15,6 +15,7 @@ import { Route } from 'react-router';
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
 import App from './components/app';
+import Photo from './components/photo';
 
 // loads index.html properly
 // <Router history={hashHistory} routes = {routes} />
@@ -41,6 +42,7 @@ ReactDOM.render(
         <Router history={hashHistory}>
             <Route path="/" component={App} />
             <Route path="/herro" component={Greeting}/>
+            <Route path="/photo/:id" component={Photo} />
         </Router>
     </Provider>
     , document.getElementById('content'));
