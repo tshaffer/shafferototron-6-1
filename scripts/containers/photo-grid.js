@@ -8,6 +8,9 @@ import { updateSelectedPhotos } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import { fetchPhotos } from '../actions/index';
 
+import createBrowserHistory from 'history/lib/createBrowserHistory';
+import { Router, browserHistory, hashHistory } from 'react-router';
+
 import { Link } from 'react-router';
 
 class PhotoGrid extends Component {
@@ -32,6 +35,7 @@ class PhotoGrid extends Component {
 
     displayFullSizePhoto(photo) {
         console.log("displayFullSizePhoto");
+        hashHistory.push('/herro');
     }
 
     togglePhotoSelection(photo) {
@@ -56,6 +60,8 @@ class PhotoGrid extends Component {
         this.selectedPhotos = selectedPhotos;
     }
 
+    // <Link to="/herro">
+
     getDayOfPhotoNodes(dayOfPhotos) {
 
         var self = this;
@@ -68,11 +74,11 @@ class PhotoGrid extends Component {
 
             return (
                 <li className="flex-item photoThumbsDiv thumbLi" key={photo.dbId}>
-                    <img id={photo.dbId} src={self.thumbUrl} className="thumbImg" width={photo.width}
-                         height={photo.height}
-                         onClick={() => self.props.selectPhoto(photo)}
-                         onDoubleClick={() => self.displayFullSizePhoto(photo)}
-                    />
+                        <img id={photo.dbId} src={self.thumbUrl} className="thumbImg" width={photo.width}
+                             height={photo.height}
+                             onClick={() => self.props.selectPhoto(photo)}
+                             onDoubleClick={() => self.displayFullSizePhoto(photo)}
+                        />
                     <input id={photo.dbId} type="checkbox" className="thumbSelector"
                            onClick={() => self.togglePhotoSelection(photo)}
                     >
