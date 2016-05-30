@@ -262,7 +262,6 @@ class PhotoGrid extends Component {
         return (
 
             <div>
-                <Link to="/herro">Herro</Link>
                 <button id="openCloseIcon" className="plainButton" type="button" onClick={this.props.onToggleOpenCloseSidebar.bind(this)}>{openCloseLabel}</button>
                 {daysOfPhotosNodes}
             </div>

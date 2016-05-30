@@ -224,3 +224,20 @@ button:focus { outline: none; }
 .tagQueryRight {
     margin: 0px 6px 0px 4px;
 }
+
+#backFromPhotoButton {
+    top: 3px;
+    position: absolute;
+    right: 5px;
+}
+
+.fullSizeDiv {
+    width: 1400px;
+    height: 800px;
+}
+
+.fullSizeImg {
+    width: auto;
+    max-height: 100%;
+}
+
