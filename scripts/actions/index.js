@@ -163,10 +163,8 @@ export function addFolder(folderName) {
         params: { folderName: folderName }
     });
 
-    // action below is currently unused
     return {
-        type: ADD_FOLDER,
+        type: FETCH_PHOTOS,
         payload: request
     };
-
 }
